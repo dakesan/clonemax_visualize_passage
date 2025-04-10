@@ -245,7 +245,7 @@ const ParameterSettings = ({ onSettingsChange, plateData }) => {
                                 checked={displayMode === 'heatmap'}
                                 onChange={() => setDisplayMode('heatmap')}
                             />
-                            <svg className="h-2 w-2 mb-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                            <svg className="icon-xs mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                             </svg>
                             <span className="text-xs font-medium">ヒートマップ</span>
@@ -264,7 +264,7 @@ const ParameterSettings = ({ onSettingsChange, plateData }) => {
                                 checked={displayMode === 'numeric'}
                                 onChange={() => setDisplayMode('numeric')}
                             />
-                            <svg className="h-2 w-2 mb-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                            <svg className="icon-xs mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
                             </svg>
                             <span className="text-xs font-medium">数値表示</span>
@@ -283,7 +283,7 @@ const ParameterSettings = ({ onSettingsChange, plateData }) => {
                                 checked={displayMode === 'hybrid'}
                                 onChange={() => setDisplayMode('hybrid')}
                             />
-                            <svg className="h-2 w-2 mb-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                            <svg className="icon-xs mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                             <span className="text-xs font-medium">ハイブリッド</span>
@@ -308,7 +308,7 @@ const ParameterSettings = ({ onSettingsChange, plateData }) => {
                         }
                     }}
                 >
-                    <svg className="h-2 w-2 mr-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <svg className="icon-xs mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
                     設定をリセット
