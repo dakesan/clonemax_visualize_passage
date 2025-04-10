@@ -243,23 +243,51 @@ const PlateVisualization = forwardRef(({ plateData, settings }, ref) => {
             .attr('font-size', '12px')
             .text('% confluence');
 
-        // 閾値内のウェル数表示（新規追加）
+        // 閾値内のウェル数表示（改善版）
         const wellsInThreshold = plateData.filter(d => d.value >= minThreshold && d.value <= maxThreshold).length;
         const totalNonZeroWells = plateData.filter(d => d.value > 0).length;
+        const hitPercentage = Math.round(wellsInThreshold / totalNonZeroWells * 100);
 
-        svg.append('text')
+        // ヒット率の背景色を決定
+        let hitBgColor = '#e5e7eb'; // デフォルトはグレー
+        if (hitPercentage >= 50) {
+            hitBgColor = '#10b981'; // 緑（高いヒット率）
+        } else if (hitPercentage >= 20) {
+            hitBgColor = '#f59e0b'; // オレンジ（中程度のヒット率）
+        } else if (hitPercentage > 0) {
+            hitBgColor = '#ef4444'; // 赤（低いヒット率）
+        }
+
+        // ヒット率表示用の背景ボックス
+        svg.append('rect')
             .attr('x', margin.left)
-            .attr('y', height - 10)
-            .attr('font-size', '12px')
+            .attr('y', height - 30)
+            .attr('width', 200)
+            .attr('height', 24)
+            .attr('rx', 4)
+            .attr('fill', hitBgColor)
+            .attr('opacity', 0.2)
+            .attr('stroke', hitBgColor)
+            .attr('stroke-width', 1);
+
+        // ヒット率テキスト
+        svg.append('text')
+            .attr('x', margin.left + 10)
+            .attr('y', height - 14)
+            .attr('font-size', '14px')
+            .attr('font-weight', 'bold')
             .attr('text-anchor', 'start')
-            .text(`閾値内ウェル: ${wellsInThreshold}/${totalNonZeroWells} (${Math.round(wellsInThreshold / totalNonZeroWells * 100)}%)`);
+            .attr('fill', '#000')
+            .text(`ヒットウェル: ${wellsInThreshold}/${totalNonZeroWells} (${hitPercentage}%)`);
 
     }, [plateData, settings]);
 
     return (
-        <div className="relative">
-            <svg ref={svgRef} className="mx-auto"></svg>
-            <div ref={tooltipRef}></div>
+        <div className="relative flex justify-center">
+            <div>
+                <svg ref={svgRef} className="mx-auto"></svg>
+                <div ref={tooltipRef}></div>
+            </div>
         </div>
     );
 });

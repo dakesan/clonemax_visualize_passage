@@ -121,12 +121,12 @@ const FileUpload = ({ onDataLoaded }) => {
     };
 
     const onDrop = useCallback(acceptedFiles => {
-        const file = acceptedFiles[0];
-        if (file) {
+        // 複数ファイルの処理に対応
+        for (const file of acceptedFiles) {
             // ファイルタイプの検証
             if (!file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
                 setError('サポートされていないファイル形式です。Excel形式(.xlsx, .xls)のファイルをアップロードしてください。');
-                return;
+                continue;
             }
 
             processExcel(file);
@@ -139,44 +139,70 @@ const FileUpload = ({ onDataLoaded }) => {
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
             'application/vnd.ms-excel': ['.xls']
         },
-        multiple: false
+        multiple: true // 複数ファイルのアップロードを許可
     });
 
     return (
         <div className="p-4">
-            <h2 className="text-xl font-bold mb-4">Excelファイルをアップロード</h2>
-
             <div
                 {...getRootProps()}
-                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-blue-400'
+                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all ${isDragActive
+                    ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 scale-[1.02] shadow-md'
+                    : 'border-gray-300 hover:border-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/10'
                     }`}
             >
                 <input {...getInputProps()} />
                 {isDragActive ? (
-                    <p className="text-blue-500">ここにファイルをドロップ...</p>
+                    <div className="py-4">
+                        <div className="animate-bounce mb-3">
+                            <svg className="mx-auto h-3 w-3 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </div>
+                        <p className="text-indigo-600 dark:text-indigo-400 font-medium">ここにファイルをドロップ...</p>
+                    </div>
                 ) : (
                     <div>
-                        <p className="mb-2">ここにExcelファイルをドラッグ&ドロップするか</p>
+                        <svg className="mx-auto h-3 w-3 text-gray-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <p className="mb-4 text-gray-600 dark:text-gray-300"><span className="font-medium">Excelファイル</span>をドラッグ&ドロップするか</p>
                         <button
-                            className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition-colors"
+                            type="button"
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
+                            <svg className="mr-2 -ml-1 h-2 w-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg>
                             ファイルを選択
                         </button>
+                        <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                            .xlsx または .xls 形式のファイルをアップロードしてください
+                        </p>
                     </div>
                 )}
             </div>
 
             {isLoading && (
                 <div className="mt-4">
-                    <div className="w-full bg-gray-200 rounded-full h-2.5">
-                        <div className="bg-blue-600 h-2.5 rounded-full w-3/4 animate-[pulse_1s_ease-in-out_infinite]"></div>
+                    <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div className="bg-indigo-600 h-full rounded-full animate-pulse-x"></div>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">ファイル処理中...</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 flex items-center justify-center">
+                        <svg className="animate-spin -ml-1 mr-2 h-2 w-2 text-indigo-500" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        ファイル処理中...
+                    </p>
                 </div>
             )}
 
             {error && (
-                <div className="mt-4 p-3 bg-red-100 text-red-700 rounded-md">
+                <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-900/30 text-red-700 dark:text-red-400 rounded-md flex items-start">
+                    <svg className="h-2 w-2 text-red-500 mr-2 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                     <p>{error}</p>
                 </div>
             )}
