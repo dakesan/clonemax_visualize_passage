@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import './App.css';
+import './icon-fix.css'; // SVGアイコンのサイズを修正するためのCSS
 import FileUpload from './components/FileUpload/FileUpload';
 import ParameterSettings from './components/ParameterSettings/ParameterSettings';
 import PlateVisualization from './components/PlateVisualization/PlateVisualization';
@@ -205,20 +206,20 @@ function App() {
                             d.value >= settings.minThreshold && d.value <= settings.maxThreshold
                           ).length;
                           const nonZeroWells = itemData.filter(d => d.value > 0).length;
-                          
+
                           totalWells += itemData.length;
                           totalHitWells += wellsInThreshold;
                           totalNonZeroWells += nonZeroWells;
                         });
 
-                        const hitPercentage = totalNonZeroWells > 0 
-                          ? Math.round(totalHitWells / totalNonZeroWells * 100) 
+                        const hitPercentage = totalNonZeroWells > 0
+                          ? Math.round(totalHitWells / totalNonZeroWells * 100)
                           : 0;
-                          
+
                         // ヒット率に基づく背景色
                         let bgColorClass = 'bg-gray-100 dark:bg-gray-700';
                         let textColorClass = 'text-gray-700 dark:text-gray-300';
-                        
+
                         if (hitPercentage >= 50) {
                           bgColorClass = 'bg-green-100 dark:bg-green-900/30';
                           textColorClass = 'text-green-700 dark:text-green-300';
@@ -229,19 +230,19 @@ function App() {
                           bgColorClass = 'bg-red-100 dark:bg-red-900/30';
                           textColorClass = 'text-red-700 dark:text-red-300';
                         }
-                        
+
                         return (
                           <>
                             <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center">
                               <span className="text-xs text-gray-500 dark:text-gray-400">ファイル数</span>
                               <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">{plateDataList.length}</span>
                             </div>
-                            
+
                             <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center">
                               <span className="text-xs text-gray-500 dark:text-gray-400">全ウェル数</span>
                               <span className="text-xl font-bold text-gray-700 dark:text-gray-300">{totalNonZeroWells} / {totalWells}</span>
                             </div>
-                            
+
                             <div className={`p-3 rounded-lg border border-gray-200 dark:border-gray-700 ${bgColorClass} flex flex-col items-center justify-center`}>
                               <span className="text-xs text-gray-500 dark:text-gray-400">全ヒットウェル</span>
                               <span className={`text-xl font-bold ${textColorClass}`}>
@@ -253,7 +254,7 @@ function App() {
                       })()}
                     </div>
                   </div>
-                  
+
                   {/* ファイル一覧 */}
                   <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6 border border-gray-100 dark:border-gray-700 overflow-x-auto">
                     <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">ファイル一覧</h3>
@@ -261,14 +262,14 @@ function App() {
                       {plateDataList.map((item, index) => {
                         // 閾値内のウェル数を計算
                         const itemData = item.data || [];
-                        const wellsInThreshold = itemData.filter(d => 
+                        const wellsInThreshold = itemData.filter(d =>
                           d.value >= settings.minThreshold && d.value <= settings.maxThreshold
                         ).length;
                         const totalNonZeroWells = itemData.filter(d => d.value > 0).length;
-                        const hitPercentage = totalNonZeroWells > 0 
-                          ? Math.round(wellsInThreshold / totalNonZeroWells * 100) 
+                        const hitPercentage = totalNonZeroWells > 0
+                          ? Math.round(wellsInThreshold / totalNonZeroWells * 100)
                           : 0;
-                        
+
                         // ヒット率に基づく背景色
                         let bgColorClass = 'bg-gray-100 dark:bg-gray-700';
                         if (hitPercentage >= 50) {
@@ -278,15 +279,15 @@ function App() {
                         } else if (hitPercentage > 0) {
                           bgColorClass = 'bg-red-100 dark:bg-red-900/30';
                         }
-                        
+
                         return (
                           <button
                             key={index}
                             onClick={() => setCurrentFileIndex(index)}
-                            className={`flex-shrink-0 px-3 py-2 rounded-md text-xs font-medium transition-colors ${index === currentFileIndex 
+                            className={`flex-shrink-0 px-3 py-2 rounded-md text-xs font-medium transition-colors ${index === currentFileIndex
                               ? 'ring-2 ring-indigo-500 ' + bgColorClass
                               : bgColorClass + ' hover:bg-gray-200 dark:hover:bg-gray-600'
-                            }`}
+                              }`}
                           >
                             <div className="flex flex-col items-start">
                               <span className="truncate max-w-[120px]">{item.name}</span>
@@ -301,7 +302,7 @@ function App() {
                   </div>
                 </>
               )}
-              
+
               {/* メインコンテンツ - プレート表示 (中央配置) */}
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-100 dark:border-gray-700">
                 <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-3 text-center">

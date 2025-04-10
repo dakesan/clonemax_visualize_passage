@@ -1,3 +1,16 @@
+/* すべてのSVGアイコンのサイズを制限するグローバルスタイル */
+svg {
+  max-width: 1rem !important;
+  max-height: 1rem !important;
+  flex-shrink: 0 !important;
+}
+
+/* 特定の大きいSVGアイコンの例外処理 */
+svg.icon-xl {
+  max-width: 2.5rem !important;
+  max-height: 2.5rem !important;
+}
+
 /* SVGアイコンのサイズを強制的に固定するためのスタイル */
 svg.icon-xs {
   width: 0.5rem !important;

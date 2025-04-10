@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../icon-fix.css'; // SVGアイコンのサイズを修正するためのCSS
 import FileUpload from '../FileUpload/FileUpload';
 
 const WelcomeScreen = ({ onDataLoaded }) => {

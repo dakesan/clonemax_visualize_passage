@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../icon-fix.css'; // SVGアイコンのサイズを修正するためのCSS
 import ParameterSettings from '../ParameterSettings/ParameterSettings';
 
 const SettingsPanel = ({ showSettings, setShowSettings, plateData, onSettingsChange }) => {
   if (!showSettings || !plateData) return null;
-  
+
   return (
     <div className="fixed top-16 right-4 z-40 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
       <div className="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/30 px-4 py-2">

@@ -1,16 +1,17 @@
 import React from 'react';
+import '../../icon-fix.css'; // SVGアイコンのサイズを修正するためのCSS
 
 const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settings, plateData, fileName }) => {
   // 現在のファイルのヒット率を計算
   const calculateHitRate = (data) => {
-    const wellsInThreshold = data.filter(d => 
+    const wellsInThreshold = data.filter(d =>
       d.value >= settings.minThreshold && d.value <= settings.maxThreshold
     ).length;
     const totalNonZeroWells = data.filter(d => d.value > 0).length;
-    const hitPercentage = totalNonZeroWells > 0 
-      ? Math.round(wellsInThreshold / totalNonZeroWells * 100) 
+    const hitPercentage = totalNonZeroWells > 0
+      ? Math.round(wellsInThreshold / totalNonZeroWells * 100)
       : 0;
-    
+
     return {
       wellsInThreshold,
       totalNonZeroWells,
@@ -33,16 +34,16 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
         d.value >= settings.minThreshold && d.value <= settings.maxThreshold
       ).length;
       const nonZeroWells = itemData.filter(d => d.value > 0).length;
-      
+
       totalWells += itemData.length;
       totalHitWells += wellsInThreshold;
       totalNonZeroWells += nonZeroWells;
     });
 
-    const hitPercentage = totalNonZeroWells > 0 
-      ? Math.round(totalHitWells / totalNonZeroWells * 100) 
+    const hitPercentage = totalNonZeroWells > 0
+      ? Math.round(totalHitWells / totalNonZeroWells * 100)
       : 0;
-    
+
     return {
       totalWells,
       totalHitWells,
@@ -55,7 +56,7 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
   const getColorClasses = (hitPercentage) => {
     let bgColorClass = 'bg-gray-100 dark:bg-gray-700';
     let textColorClass = 'text-gray-700 dark:text-gray-300';
-    
+
     if (hitPercentage >= 50) {
       bgColorClass = 'bg-green-100 dark:bg-green-900/30';
       textColorClass = 'text-green-700 dark:text-green-300';
@@ -66,7 +67,7 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
       bgColorClass = 'bg-red-100 dark:bg-red-900/30';
       textColorClass = 'text-red-700 dark:text-red-300';
     }
-    
+
     return { bgColorClass, textColorClass };
   };
 
@@ -83,9 +84,9 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
             {currentFileIndex + 1} / {plateDataList.length}
           </span>
         </div>
-        
+
         <div className="text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 truncate">{fileName}</div>
-        
+
         {/* ヒット率サマリー */}
         <div className={`${bgColorClass} p-3 rounded-lg border border-gray-200 dark:border-gray-700`}>
           <div className="flex justify-between items-center">
@@ -96,7 +97,7 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
           </div>
         </div>
       </div>
-      
+
       {/* ファイル一覧 (複数ファイルがある場合のみ表示) */}
       {plateDataList.length > 1 && (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 border border-gray-100 dark:border-gray-700">
@@ -106,7 +107,7 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
               // 閾値内のウェル数を計算
               const itemData = item.data || [];
               const { wellsInThreshold, totalNonZeroWells, hitPercentage } = calculateHitRate(itemData);
-              
+
               // ヒット率に基づく色
               let indicatorColor = 'bg-gray-400';
               if (hitPercentage >= 50) {
@@ -116,15 +117,15 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
               } else if (hitPercentage > 0) {
                 indicatorColor = 'bg-red-500';
               }
-              
+
               return (
                 <button
                   key={index}
                   onClick={() => setCurrentFileIndex(index)}
-                  className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${index === currentFileIndex 
+                  className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${index === currentFileIndex
                     ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center">
                     <span className={`w-2 h-2 rounded-full ${indicatorColor} mr-2 flex-shrink-0`}></span>
@@ -137,7 +138,7 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
               );
             })}
           </div>
-          
+
           {/* 合計値表示 */}
           {plateDataList.length > 1 && (
             <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
@@ -145,10 +146,10 @@ const FileList = ({ plateDataList, currentFileIndex, setCurrentFileIndex, settin
               {(() => {
                 // 全ファイルの合計値を計算
                 const { totalWells, totalHitWells, totalNonZeroWells, hitPercentage } = calculateTotals();
-                  
+
                 // ヒット率に基づく背景色
                 const { bgColorClass, textColorClass } = getColorClasses(hitPercentage);
-                
+
                 return (
                   <div className={`${bgColorClass} p-3 rounded-lg border border-gray-200 dark:border-gray-700`}>
                     <div className="flex justify-between items-center mb-1">

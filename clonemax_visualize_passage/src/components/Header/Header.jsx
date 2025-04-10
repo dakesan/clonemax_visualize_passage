@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../icon-fix.css'; // SVGアイコンのサイズを修正するためのCSS
 
 const Header = ({ plateData, fileName, showSettings, setShowSettings, handleDataLoaded }) => {
   const [isScrolled, setIsScrolled] = React.useState(false);
