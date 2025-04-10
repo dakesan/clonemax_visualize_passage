@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import './App.css';
-import './icon-fix.css'; // SVGアイコンのサイズを修正するためのCSS
 import FileUpload from './components/FileUpload/FileUpload';
 import ParameterSettings from './components/ParameterSettings/ParameterSettings';
 import PlateVisualization from './components/PlateVisualization/PlateVisualization';
@@ -85,7 +84,7 @@ function App() {
                 onClick={() => setShowSettings(!showSettings)}
                 className="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
               >
-                <svg className="icon-sm mr-1 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -108,7 +107,7 @@ function App() {
                 className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={() => document.getElementById('file-upload-input').click()}
               >
-                <svg className="icon-sm mr-1 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <svg className="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                 </svg>
                 ファイルをアップロード
@@ -158,7 +157,7 @@ function App() {
               onClick={() => setShowSettings(false)}
               className="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
             >
-              <svg className="icon-md text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -175,7 +174,7 @@ function App() {
           {/* ファイルがアップロードされていない場合の表示 */}
           {!plateData && (
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 text-center max-w-2xl mx-auto border-t-4 border-indigo-500">
-              <svg className="mx-auto icon-xl text-gray mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="mx-auto h-10 w-10 text-gray-400 dark:text-gray-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
               <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">96ウェルプレートデータをアップロード</h2>
@@ -206,20 +205,20 @@ function App() {
                             d.value >= settings.minThreshold && d.value <= settings.maxThreshold
                           ).length;
                           const nonZeroWells = itemData.filter(d => d.value > 0).length;
-
+                          
                           totalWells += itemData.length;
                           totalHitWells += wellsInThreshold;
                           totalNonZeroWells += nonZeroWells;
                         });
 
-                        const hitPercentage = totalNonZeroWells > 0
-                          ? Math.round(totalHitWells / totalNonZeroWells * 100)
+                        const hitPercentage = totalNonZeroWells > 0 
+                          ? Math.round(totalHitWells / totalNonZeroWells * 100) 
                           : 0;
-
+                          
                         // ヒット率に基づく背景色
                         let bgColorClass = 'bg-gray-100 dark:bg-gray-700';
                         let textColorClass = 'text-gray-700 dark:text-gray-300';
-
+                        
                         if (hitPercentage >= 50) {
                           bgColorClass = 'bg-green-100 dark:bg-green-900/30';
                           textColorClass = 'text-green-700 dark:text-green-300';
@@ -230,19 +229,19 @@ function App() {
                           bgColorClass = 'bg-red-100 dark:bg-red-900/30';
                           textColorClass = 'text-red-700 dark:text-red-300';
                         }
-
+                        
                         return (
                           <>
                             <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center">
                               <span className="text-xs text-gray-500 dark:text-gray-400">ファイル数</span>
                               <span className="text-xl font-bold text-indigo-600 dark:text-indigo-400">{plateDataList.length}</span>
                             </div>
-
+                            
                             <div className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 flex flex-col items-center justify-center">
                               <span className="text-xs text-gray-500 dark:text-gray-400">全ウェル数</span>
                               <span className="text-xl font-bold text-gray-700 dark:text-gray-300">{totalNonZeroWells} / {totalWells}</span>
                             </div>
-
+                            
                             <div className={`p-3 rounded-lg border border-gray-200 dark:border-gray-700 ${bgColorClass} flex flex-col items-center justify-center`}>
                               <span className="text-xs text-gray-500 dark:text-gray-400">全ヒットウェル</span>
                               <span className={`text-xl font-bold ${textColorClass}`}>
@@ -254,102 +253,55 @@ function App() {
                       })()}
                     </div>
                   </div>
-                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6 border border-gray-100 dark:border-gray-700">
-                    <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 flex justify-between items-center">
-                      <span>ファイル一覧</span>
-                      <div className="flex space-x-1">
-                        {plateDataList.length > 5 && (
-                          <>
-                            <button
-                              onClick={() => setCurrentFileIndex(Math.max(0, currentFileIndex - 1))}
-                              className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500">
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                              </svg>
-                            </button>
-                            <button
-                              onClick={() => setCurrentFileIndex(Math.min(plateDataList.length - 1, currentFileIndex + 1))}
-                              className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500">
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                              </svg>
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    </h3>
-
-                    <div className="border-b border-gray-200 dark:border-gray-700">
-                      <nav className="-mb-px flex overflow-x-auto hide-scrollbar" aria-label="ファイルタブ">
-                        {plateDataList.map((item, index) => {
-                          // 閾値内のウェル数を計算
-                          const itemData = item.data || [];
-                          const wellsInThreshold = itemData.filter(d =>
-                            d.value >= settings.minThreshold && d.value <= settings.maxThreshold
-                          ).length;
-                          const totalNonZeroWells = itemData.filter(d => d.value > 0).length;
-                          const hitPercentage = totalNonZeroWells > 0
-                            ? Math.round(wellsInThreshold / totalNonZeroWells * 100)
-                            : 0;
-
-                          // ヒット率に基づく色
-                          let tabColor = 'text-gray-500 dark:text-gray-400';
-                          let activeBorder = 'border-gray-300 dark:border-gray-500';
-
-                          if (hitPercentage >= 50) {
-                            tabColor = 'text-green-600 dark:text-green-400';
-                            activeBorder = 'border-green-500 dark:border-green-400';
-                          } else if (hitPercentage >= 20) {
-                            tabColor = 'text-amber-600 dark:text-amber-400';
-                            activeBorder = 'border-amber-500 dark:border-amber-400';
-                          } else if (hitPercentage > 0) {
-                            tabColor = 'text-red-600 dark:text-red-400';
-                            activeBorder = 'border-red-500 dark:border-red-400';
-                          }
-
-                          return (
-                            <button
-                              key={index}
-                              onClick={() => setCurrentFileIndex(index)}
-                              className={`flex-shrink-0 inline-flex flex-col items-center py-2 px-4 border-b-2 font-medium text-sm whitespace-nowrap transition-colors
-                                ${index === currentFileIndex
-                                  ? `border-b-2 ${activeBorder} ${tabColor}`
-                                  : 'border-transparent hover:border-gray-300 dark:hover:border-gray-600 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-                                }`}
-                            >
+                  
+                  {/* ファイル一覧 */}
+                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 mb-6 border border-gray-100 dark:border-gray-700 overflow-x-auto">
+                    <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">ファイル一覧</h3>
+                    <div className="flex space-x-2 pb-2 overflow-x-auto">
+                      {plateDataList.map((item, index) => {
+                        // 閾値内のウェル数を計算
+                        const itemData = item.data || [];
+                        const wellsInThreshold = itemData.filter(d => 
+                          d.value >= settings.minThreshold && d.value <= settings.maxThreshold
+                        ).length;
+                        const totalNonZeroWells = itemData.filter(d => d.value > 0).length;
+                        const hitPercentage = totalNonZeroWells > 0 
+                          ? Math.round(wellsInThreshold / totalNonZeroWells * 100) 
+                          : 0;
+                        
+                        // ヒット率に基づく背景色
+                        let bgColorClass = 'bg-gray-100 dark:bg-gray-700';
+                        if (hitPercentage >= 50) {
+                          bgColorClass = 'bg-green-100 dark:bg-green-900/30';
+                        } else if (hitPercentage >= 20) {
+                          bgColorClass = 'bg-amber-100 dark:bg-amber-900/30';
+                        } else if (hitPercentage > 0) {
+                          bgColorClass = 'bg-red-100 dark:bg-red-900/30';
+                        }
+                        
+                        return (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentFileIndex(index)}
+                            className={`flex-shrink-0 px-3 py-2 rounded-md text-xs font-medium transition-colors ${index === currentFileIndex 
+                              ? 'ring-2 ring-indigo-500 ' + bgColorClass
+                              : bgColorClass + ' hover:bg-gray-200 dark:hover:bg-gray-600'
+                            }`}
+                          >
+                            <div className="flex flex-col items-start">
                               <span className="truncate max-w-[120px]">{item.name}</span>
-                              <div className={`flex items-center text-xs mt-1 ${index === currentFileIndex ? 'font-bold' : ''}`}>
-                                <span className={`inline-block h-2 w-2 rounded-full mr-1 ${hitPercentage >= 50 ? 'bg-green-500' :
-                                  hitPercentage >= 20 ? 'bg-amber-500' :
-                                    hitPercentage > 0 ? 'bg-red-500' : 'bg-gray-500'
-                                  }`}></span>
-                                {hitPercentage}% ({wellsInThreshold}/{totalNonZeroWells})
-                              </div>
-                            </button>
-                          );
-                        })}
-                      </nav>
+                              <span className="text-xs mt-1 font-bold">
+                                ヒット: {wellsInThreshold}/{totalNonZeroWells} ({hitPercentage}%)
+                              </span>
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
-
-                    {/* 現在選択されているファイルの詳細情報 */}
-                    {plateData && (
-                      <div className="mt-2 pt-2 text-sm text-gray-500 dark:text-gray-400 flex justify-between">
-                        <span>ファイル {currentFileIndex + 1} / {plateDataList.length}</span>
-                        <span>
-                          {new Date(plateDataList[currentFileIndex].timestamp).toLocaleDateString('ja-JP', {
-                            year: 'numeric',
-                            month: '2-digit',
-                            day: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </span>
-                      </div>
-                    )}
                   </div>
                 </>
               )}
-
+              
               {/* メインコンテンツ - プレート表示 (中央配置) */}
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6 border border-gray-100 dark:border-gray-700">
                 <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-3 text-center">
